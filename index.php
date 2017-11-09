@@ -47,11 +47,12 @@ $pdf->Output();
            }
             var x=document.getElementById("coupon").value;
            console.log(x);
+
   if (parseInt(x,10)>32){
     
     var current = document.getElementById("coupon");
     current.value = 32;
-   alert("Coupon value should not be greater than 32.");
+   alert("you can generate maximum 32 coupon in one attempt!");
     return false;
   }
           return true;
@@ -61,8 +62,21 @@ $pdf->Output();
 </head>
 <body>
 <form name ="login" method="post" onsubmit="validateform()"  >
-Size:<input type="text" name="size" id = "size" onkeypress="javascript:return isNumber(event)"  required><br>
-Coupon required: <input type="text" name="coupon" id="coupon"  onkeypress="javascript:return isNumber(event)"  required><br>
+Size: 
+<?php
+echo "<select name='size' id='size' onkeypress='javascript:return isNumber(event)'  required>";
+$range = range(34,42);
+foreach ($range as $cm) {
+  echo "<option value='$cm'>$cm cm</option>";
+}
+echo "</select>";
+?>
+<br><br>
+
+Coupon required: <input type="number" min="1" max="32" name="coupon" id="coupon"  onkeypress="javascript:return isNumber(event)"  required>
+<font color="red">you can generate maximum 32 coupon in one attempt!</font>
+<br><br>
+
 <input type="submit" name="submit" onclick=isNumberKey(event)>
 
 </form>
